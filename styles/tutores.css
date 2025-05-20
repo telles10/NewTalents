@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    background-color: #1a73e8;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+}
+
+.search-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#searchTutor {
+    padding: 12px;
+    width: 350px;
+    border: 2px solid #e8eaed;
+    border-radius: 25px;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.tutores-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    padding: 20px;
+}
+
+.tutor-card {
+    background-color: white;
+    border: none;
+    padding: 25px;
+    border-radius: 15px;
+    width: 320px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.tutor-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.tutor-card img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 4px solid #1a73e8;
+    box-shadow: 0 4px 8px rgba(26,115,232,0.3);
+}
+
+.tutor-info {
+    text-align: center;
+}
+
+.tutor-info h3 {
+    color: #1a73e8;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.tutor-info p {
+    color: #5f6368;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+    line-height: 1.4;
+}
+
+.especialidade {
+    color: #1a73e8 !important;
+    font-weight: bold;
+}
+
+.agendar-btn {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    font-size: 1.1em;
+    width: 80%;
+}
+
+.agendar-btn:hover {
+    background-color: #1557b0;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(26,115,232,0.3);
+}
+
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.voltar-btn {
+    position: absolute;
+    left: 20px;
+    background-color: #1a73e8;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.voltar-btn:hover {
+    background-color: white;
+    color: #1a73e8;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(255,255,255,0.3);
+}
+
+.sair-btn {
+    position: absolute;
+    right: 20px;
+    background-color: #1a73e8;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.sair-btn:hover {
+    background-color: white;
+    color: #1a73e8;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(255,255,255,0.3);
+}
+
+@media (max-width: 768px) {
+    .tutor-card {
+        width: 100%;
+        max-width: 320px;
+    }
+    
+    #searchTutor {
+        width: 90%;
+        max-width: 350px;
+
+
+}    }    }
+}
