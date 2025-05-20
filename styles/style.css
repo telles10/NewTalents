@@ -741,3 +741,42 @@ h1 {
     background-color: var(--bs-primary);
     color: white;
 }
+
+/* Adicione ao final do arquivo */
+/* filepath: \\sn928escoladfp1\pastas alunos$\54946783857\Desktop\projeto\NewTalents\styles\style.css */
+.categories-title-detailed {
+    margin-bottom: 2.2rem !important;
+    position: relative;
+    font-size: 2.3rem;
+    line-height: 1.18;
+    letter-spacing: 1.2px;
+}
+.categories-title-gradient {
+    background: linear-gradient(90deg, #150668 0%, #072a50 60%, #00c6ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    display: inline-block;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 12px #00336622, 0 1px 0 #fff2;
+}
+.categories-highlight {
+    background: linear-gradient(90deg, #7029f5 0%, #45179b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    margin-left: 2px;
+}
+.categories-title-sub {
+    font-size: 1.08rem;
+    color: #007bff;
+    font-weight: 500;
+    margin-top: 0.3rem;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 8px #00c6ff22;
+}
