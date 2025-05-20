@@ -76,3 +76,29 @@ window.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+window.addEventListener('DOMContentLoaded', function() {
+    // Função para habilitar/desabilitar campos
+    function setEditable(editable) {
+        const fields = document.querySelectorAll(
+            "#nome, #cargo, #localizacao, #email, #telefone, #sobre, #formacao, #experiencia, #habilidades, #idiomas"
+        );
+        fields.forEach(f => { if (f) f.disabled = !editable; });
+    }
+
+    // Inicialmente só pode salvar, editar desabilitado
+    setEditable(true);
+    document.getElementById('btnSalvar').disabled = false;
+    document.getElementById('btnEditar').disabled = true;
+
+    document.getElementById('btnSalvar').onclick = function() {
+        setEditable(false);
+        this.disabled = true;
+        document.getElementById('btnEditar').disabled = false;
+    };
+    document.getElementById('btnEditar').onclick = function() {
+        setEditable(true);
+        this.disabled = true;
+        document.getElementById('btnSalvar').disabled = false;
+    };
+});

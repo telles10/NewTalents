@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="./styles/curriculo.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <script defer src="./scripts/curriculo.js"></script>
 </head>
 <body>
     <div class="background-gradient"></div>
@@ -20,6 +19,10 @@
     <canvas id="particles-bg"></canvas>
     <main class="d-flex align-items-center justify-content-center min-vh-100">
         <div class="curriculo-card shadow-lg p-5 rounded-5 position-relative mx-auto">
+            <a href="index.html" class="btn btn-primary rounded-pill shadow-sm position-absolute"
+               style="top: 18px; left: 18px; min-width:90px; height:38px; z-index:30;" title="Voltar">
+                Voltar
+            </a>
             <div class="text-center mb-4">
                 <span class="curriculo-title fw-bold fs-1 mb-2 d-block">Meu Currículo</span>
                 <p class="text-secondary mb-0 fs-5">Veja e compartilhe suas experiências e conquistas profissionais!</p>
@@ -33,20 +36,25 @@
                             <span class="edit-photo"><i class="bi bi-camera-fill"></i></span>
                         </label>
                     </div>
-                    <input type="text" class="form-control form-control-lg mb-2 fw-bold text-center border-0 bg-light rounded-4 input-highlight"
+                    <input type="text" class="form-control mb-2 fw-bold text-center border-0 bg-light rounded-4 input-highlight"
                         id="nome"
+                        style="font-size:0.95rem; max-width: 220px; margin: 0 auto; padding: 0.4em 0.6em;"
                         placeholder="Seu nome completo">
-                    <input type="text" class="form-control form-control-lg mb-2 text-center border-0 bg-light rounded-4 input-highlight"
+                    <input type="text" class="form-control mb-2 text-center border-0 bg-light rounded-4 input-highlight"
                         id="cargo"
+                        style="font-size:0.95rem; max-width: 220px; margin: 0 auto; padding: 0.4em 0.6em;"
                         placeholder="Seu cargo ou objetivo">
-                    <input type="text" class="form-control form-control-lg mb-2 text-center border-0 bg-light rounded-4 input-highlight"
+                    <input type="text" class="form-control mb-2 text-center border-0 bg-light rounded-4 input-highlight"
                         id="localizacao"
+                        style="font-size:0.95rem; max-width: 220px; margin: 0 auto; padding: 0.4em 0.6em;"
                         placeholder="Cidade, Estado">
-                    <input type="email" class="form-control form-control-lg mb-2 text-center border-0 bg-light rounded-4 input-highlight"
+                    <input type="email" class="form-control mb-2 text-center border-0 bg-light rounded-4 input-highlight"
                         id="email"
+                        style="font-size:0.95rem; max-width: 220px; margin: 0 auto; padding: 0.4em 0.6em;"
                         placeholder="Seu e-mail">
-                    <input type="tel" class="form-control form-control-lg mb-2 text-center border-0 bg-light rounded-4 input-highlight"
+                    <input type="tel" class="form-control mb-2 text-center border-0 bg-light rounded-4 input-highlight"
                         id="telefone"
+                        style="font-size:0.95rem; max-width: 220px; margin: 0 auto; padding: 0.4em 0.6em;"
                         placeholder="Seu telefone">
                 </div>
                 <div class="col-md-8">
@@ -92,7 +100,14 @@
                     </section>
                 </div>
             </div>
+            <!-- Botões Salvar e Editar no canto inferior direito -->
+            <div id="curriculo-actions" class="position-absolute d-flex gap-2 justify-content-end w-100"
+                 style="bottom: 12px; right: 0; z-index:20; pointer-events:auto; padding-right:2.5rem;">
+                <button id="btnSalvar" class="btn btn-success px-4 py-2 fw-semibold" type="button">Salvar</button>
+                <button id="btnEditar" class="btn btn-outline-primary px-4 py-2 fw-semibold" type="button" disabled>Editar</button>
+            </div>
         </div>
     </main>
+    <script src="./scripts/curriculo.js"></script>
 </body>
 </html>
