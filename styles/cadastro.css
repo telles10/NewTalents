@@ -3,9 +3,10 @@ body {
     padding: 0;
     font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f5faff 0%, #e3f0ff 100%);
+    background: linear-gradient(135deg, #e3f0ff 0%, #b6d0f7 100%);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 0 0 100vw #00336611 inset, 0 0 120px 10px #00336622 inset;
 }
 
 .background-gradient {
@@ -65,10 +66,10 @@ body {
 }
 
 .cadastro-card {
-    background: rgba(255,255,255,0.99);
+    background: rgba(255,255,255,0.98);
     backdrop-filter: blur(14px);
     border: none;
-    box-shadow: 0 8px 32px #00c6ff33, 0 1.5px 24px #007bff11;
+    box-shadow: 0 12px 48px #00336633, 0 2px 24px #007bff22, 0 0 0 12px #e3f0ff55;
     position: relative;
     overflow: hidden;
 }
@@ -199,21 +200,67 @@ body {
     color: #fff !important;
     border: none;
     box-shadow: 0 2px 12px #00336622;
-    font-size: 1.08rem;
+    font-size: 1rem;
+    padding: 0.5rem 1.1rem;
+    min-width: 90px;
+    width: auto;
     transition: background 0.2s, color 0.2s, transform 0.1s;
 }
 .btn-voltar:hover, .btn-voltar:focus {
-    background: linear-gradient(90deg, #002244 0%, #0056b3 100%);
+    background: linear-gradient(90deg, #002244 0%, #007bff 100%);
     color: #fff !important;
     transform: translateY(-2px) scale(1.03);
 }
 
+.btn-cadastro {
+    box-shadow: 0 4px 24px #00336655;
+    background: linear-gradient(90deg, #003366 0%, #0056b3 100%);
+    border: none;
+    font-size: 1.18rem;
+    max-width: 260px;
+    margin: 0 auto;
+    display: block;
+}
+.btn-cadastro:hover, .btn-cadastro:focus {
+    background: linear-gradient(90deg, #002244 0%, #007bff 100%);
+}
+
+.field-shadow {
+    box-shadow: 0 2px 16px #00336622 !important;
+    background: #f5faff;
+}
+
 .input-group.input-group-lg .form-control,
 .input-group.input-group-lg .input-group-text {
-    font-size: 1.04rem;
-    min-height: 44px;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    font-size: 1.16rem;
+    min-height: 62px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: #f5faff;
+}
+
+.ultra-rounded,
+.ultra-rounded .form-control,
+.ultra-rounded .input-group-text {
+    border-radius: 3rem !important;
+}
+
+.detailed-brand {
+    background: linear-gradient(90deg, #1a2a3a 0%, #003366 40%, #007bff 80%, #00c6ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    letter-spacing: 2.5px;
+    text-shadow: 0 2px 12px #00336633, 0 1px 0 #fff2;
+}
+
+#particles-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 0;
 }
 
 @media (max-width: 600px) {
@@ -233,5 +280,11 @@ body {
         font-size: 1rem;
         padding-left: 0.5rem;
         padding-right: 0.5rem;
+    }
+}
+
+@media (max-width: 800px) {
+    .cadastro-card {
+        max-width: 98vw !important;
     }
 }
