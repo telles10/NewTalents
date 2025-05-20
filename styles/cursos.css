@@ -9,8 +9,8 @@
 
 /* Base Styles */
 body {
-    background: #f5f7fa;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(120deg, #007bff 0%, #00c6ff 100%);
+    font-family: 'Inter', sans-serif;
     position: relative;
     min-height: 100vh;
 }

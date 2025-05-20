@@ -80,4 +80,14 @@ document.addEventListener('DOMContentLoaded', function () {
         w = window.innerWidth; h = window.innerHeight;
         canvas.width = w; canvas.height = h;
     });
+
+    // Redirecionamento suave para a página de perfil
+    document.querySelector('a[href="perfil.html"]').addEventListener('click', function(e) {
+        e.preventDefault();
+        // Opcional: Adicionar um efeito de transição suave
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+            window.location.href = 'perfil.html';
+        }, 300);
+    });
 });
