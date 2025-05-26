@@ -10,62 +10,158 @@
 </head>
 <body>
     <div class="background-gradient"></div>
-    <div class="animated-bg-bubbles">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-    </div>
-    <div class="container py-5">
-        <div class="profile-card-nt expanded-cv shadow-lg border-0 rounded-4 overflow-visible mx-auto my-4 px-0">
-            <div class="row g-0">
-                <!-- Avatar e capa -->
-                <div class="col-md-4 bg-gradient-nt position-relative d-flex flex-column align-items-center justify-content-center py-5">
-                    <div class="avatar-nt position-relative mb-3">
-                        <div class="avatar-glow"></div>
-                        <img id="fotoPerfil" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto do perfil" class="avatar-img-nt">
+    
+    <header class="profile-header">
+        <div class="container">
+            <a href="index.html" class="btn-back">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="cover-photo"></div>
+            
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto do perfil">
+                    <button class="edit-avatar">
+                        <i class="bi bi-camera-fill"></i>
+                    </button>
+                </div>
+                
+                <div class="profile-details">
+                    <h1>João Silva <i class="bi bi-patch-check-fill text-primary"></i></h1>
+                    <p class="username">@joaosilva</p>
+                    <p class="bio">Desenvolvedor Full Stack | Entusiasta de tecnologia | Aprendendo sempre</p>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">15</span>
+                            <span class="stat-label">Cursos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">8</span>
+                            <span class="stat-label">Concluídos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">12</span>
+                            <span class="stat-label">Certificados</span>
+                        </div>
                     </div>
-                    <div class="text-center mt-2">
-                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2"><i class="bi bi-geo-alt"></i> São Paulo, SP</span>
+
+                    <button class="btn btn-primary edit-profile-btn">
+                        <i class="bi bi-pencil-fill"></i> Editar Perfil
+                    </button>
+                </div>
+            </div>
+
+            <div class="profile-tabs" role="tablist" aria-label="Seções do perfil">
+                <button class="tab-btn active" 
+                        id="tab-sobre" 
+                        role="tab" 
+                        aria-selected="true" 
+                        aria-controls="sobre"
+                        data-tab="sobre">
+                    Sobre
+                </button>
+                <button class="tab-btn" 
+                        id="tab-cursos" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="cursos"
+                        data-tab="cursos">
+                    Cursos
+                </button>
+                <button class="tab-btn" 
+                        id="tab-conquistas" 
+                        role="tab" 
+                        aria-selected="false" 
+                        aria-controls="conquistas"
+                        data-tab="conquistas">
+                    Conquistas
+                </button>
+            </div>
+
+            <div class="profile-content">
+                <div class="tab-content active" 
+                     id="sobre" 
+                     role="tabpanel" 
+                     aria-labelledby="tab-sobre">
+                    <div class="info-card">
+                        <h3><i class="bi bi-person"></i> Informações Pessoais</h3>
+                        <div class="info-item">
+                            <i class="bi bi-envelope"></i>
+                            <span>joao.silva@exemplo.com</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="bi bi-geo-alt"></i>
+                            <span>São Paulo, SP</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="bi bi-briefcase"></i>
+                            <span>Desenvolvedor na TechCorp</span>
+                        </div>
                     </div>
                 </div>
-                <!-- Dados do perfil -->
-                <div class="col-md-8 bg-white bg-opacity-75 p-4 p-md-5 d-flex flex-column justify-content-center">
-                    <div class="profile-fields">
-                        <div class="d-flex align-items-center mb-2">
-                            <h2 class="fw-bold mb-0 me-2 text-dark" id="nomePerfil">João Silva</h2>
-                        </div>
-                        <div class="d-flex align-items-center mb-2">
-                            <span class="text-muted fs-5" id="usuarioPerfil">@joaosilva</span>
-                        </div>
-                        <div class="d-flex align-items-center mb-2">
-                            <span class="text-muted fs-6" id="emailPerfil">joao.silva@exemplo.com</span>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="row text-center mb-3">
-                        <div class="col-4">
-                            <div class="fw-bold fs-3 text-accent" id="qtdCursos">15</div>
-                            <div class="small text-muted">Cursos</div>
-                        </div>
-                        <div class="col-4">
-                            <div class="fw-bold fs-3 text-accent" id="qtdConcluidos">8</div>
-                            <div class="small text-muted">Concluídos</div>
-                        </div>
-                        <div class="col-4">
-                            <div class="fw-bold fs-3 text-accent" id="qtdCertificados">12</div>
-                            <div class="small text-muted">Certificados</div>
+
+                <div class="tab-content" 
+                     id="cursos" 
+                     role="tabpanel" 
+                     aria-labelledby="tab-cursos" 
+                     hidden>
+                    <div class="info-card">
+                        <h3><i class="bi bi-book"></i> Meus Cursos</h3>
+                        <div class="courses-list">
+                            <div class="info-item">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                <div>
+                                    <h4>Marketing Digital</h4>
+                                    <p class="text-muted mb-0">Concluído em 15/03/2024</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-play-circle-fill text-primary"></i>
+                                <div>
+                                    <h4>Gestão de Projetos</h4>
+                                    <p class="text-muted mb-0">Em andamento - 75% concluído</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="tab-content p-0">
-                        <div class="tab-pane fade show active" id="overview" role="tabpanel">
-                            <h5 class="fw-bold mb-2 text-dark">Sobre</h5>
-                            <p class="text-muted">Bem-vindo ao seu perfil! Aqui você pode acompanhar seu progresso, editar suas informações e visualizar seus cursos e conquistas.</p>
+                </div>
+
+                <div class="tab-content" 
+                     id="conquistas" 
+                     role="tabpanel" 
+                     aria-labelledby="tab-conquistas" 
+                     hidden>
+                    <div class="info-card">
+                        <h3><i class="bi bi-trophy"></i> Minhas Conquistas</h3>
+                        <div class="achievements-list">
+                            <div class="info-item">
+                                <i class="bi bi-award text-warning"></i>
+                                <div>
+                                    <h4>Especialista em Marketing Digital</h4>
+                                    <p class="text-muted mb-0">Conquistado em 15/03/2024</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="bi bi-star-fill text-warning"></i>
+                                <div>
+                                    <h4>Aluno Destaque</h4>
+                                    <p class="text-muted mb-0">Top 10% em desempenho</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Add to login.html, cadastro.html, and perfil.html -->
+    <script src="./scripts/auth.js"></script>
 </body>
 </html>
