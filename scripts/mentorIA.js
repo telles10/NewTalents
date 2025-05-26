@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let recognition;
     let lastTutorReply = '';
 
-    // Web Speech API - Reconhecimento de voz
+    // Inicializa reconhecimento de voz fora do if
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         recognition = new SpeechRecognition();
@@ -75,14 +75,26 @@ document.addEventListener('DOMContentLoaded', function () {
             let utter = new SpeechSynthesisUtterance(text);
             utter.lang = 'pt-BR';
 
-            // Tenta escolher uma voz feminina mais natural, se disponível
-            let voices = synth.getVoices();
-            let voice = voices.find(v => v.lang.startsWith('pt') && /fem|mulher|female/i.test(v.name));
-            if (!voice) voice = voices.find(v => v.lang.startsWith('pt'));
-            if (voice) utter.voice = voice;
-            utter.rate = 1.02;
-            utter.pitch = 1.08;
-            synth.speak(utter);
+            function setVoiceAndSpeak() {
+                let voices = synth.getVoices();
+                // Procura uma voz feminina, natural e de alta qualidade
+                let voice = voices.find(v =>
+                    v.lang.startsWith('pt') &&
+                    (/fem|mulher|female|Google|Microsoft/i.test(v.name))
+                );
+                if (!voice) voice = voices.find(v => v.lang.startsWith('pt'));
+                if (voice) utter.voice = voice;
+                utter.rate = 1.22;   // Mais rápido e natural
+                utter.pitch = 1.13;  // Tom mais confortável
+                synth.speak(utter);
+            }
+
+            // Algumas vezes as vozes ainda não estão carregadas
+            if (synth.getVoices().length === 0) {
+                synth.onvoiceschanged = setVoiceAndSpeak;
+            } else {
+                setVoiceAndSpeak();
+            }
         }
     }
 
