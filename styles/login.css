@@ -1,0 +1,226 @@
+:root {
+    --primary: #2962ff;
+    --primary-dark: #1a47d4;
+    --text-dark: #333;
+    --text-light: #666;
+    --white: #fff;
+    --border: #e0e0e0;
+    --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #f6f9ff 0%, #f0f5ff 100%);
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Modernized Background Effects */
+.background-gradient {
+    position: fixed;
+    inset: 0;
+    background: 
+        radial-gradient(circle at 90% 5%, var(--primary-light) 0%, transparent 50%),
+        radial-gradient(circle at 5% 90%, var(--primary) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, var(--gray-200) 0%, transparent 55%);
+    opacity: 0.15;
+    z-index: 0;
+    pointer-events: none;
+    animation: gradientShift 15s ease-in-out infinite;
+}
+
+/* Advanced Login Card */
+.login-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 2.5rem !important;
+    box-shadow: 0 10px 30px var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.login-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+    z-index: 0;
+}
+
+.login-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 
+        0 30px 60px -15px var(--shadow-sm),
+        0 12px 30px var(--shadow-md),
+        inset 0 2px 6px var(--glass-border);
+}
+
+.login-card:hover::before {
+    transform: translateX(-50%) translateY(-100%) rotate(45deg);
+    transition: 0.8s;
+}
+
+/* Enhanced Title Styling */
+.gradient-brand {
+    background: linear-gradient(135deg, 
+        var(--primary) 0%, 
+        var(--primary-light) 50%,
+        var(--primary-dark) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 0.75rem;
+    position: relative;
+    text-shadow: 3px 3px 6px var(--shadow-sm);
+}
+
+.subtitle-shadow {
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+    opacity: 0.8;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Modernized Form Controls */
+.form-floating .form-control {
+    height: 65px;
+    background: var(--gray-50);
+    border: 2px solid transparent;
+    border-radius: 20px !important;
+    padding: 1.5rem 1rem 0.5rem 3.2rem;
+    font-size: 1.05rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        inset 0 2px 4px var(--shadow-sm),
+        0 2px 4px var(--shadow-sm);
+}
+
+.form-floating .form-control:focus {
+    background: var(--white);
+    border-color: var(--primary);
+    box-shadow: 
+        0 0 0 4px var(--shadow-sm),
+        0 4px 12px var(--shadow-sm);
+    transform: translateY(-1px);
+}
+
+/* Button Styling */
+.btn-primary {
+    background: var(--primary);
+    border: none;
+    padding: 0.75rem;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* Links */
+.forgot-link, .signup-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgot-link:hover, .signup-link:hover {
+    color: var(--primary-dark);
+}
+
+/* Enhanced Checkbox */
+.form-check-input {
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px solid rgba(0, 123, 255, 0.2);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+/* New Animations */
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes floatIn {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(10px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+.form-floating {
+    animation: floatIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.form-floating:nth-child(2) { animation-delay: 0.2s; }
+.form-floating:nth-child(3) { animation-delay: 0.3s; }
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .login-card {
+        margin: 1rem;
+        padding: 2rem !important;
+        border-radius: 24px;
+    }
+    
+    .gradient-brand {
+        font-size: 2.2rem;
+    }
+    
+    .form-floating .form-control {
+        height: 60px;
+        font-size: 1rem;
+    }
+    
+    .btn-primary {
+        padding: 1rem 1.75rem;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}

@@ -1,0 +1,197 @@
+:root {
+    --primary: #1a73e8;
+    --primary-dark: #1557b0;
+    --primary-light: #e8f0fe;
+    --accent: #00d4ff;
+    --white: #ffffff;
+    --gray-50: #f5faff;
+    --gray-100: #e3f0ff;
+    --gray-300: #cbd5e1;
+    --shadow: 0 8px 32px 0 rgba(26, 115, 232, 0.10);
+}
+
+body {
+    background: linear-gradient(135deg, #f5faff 0%, #e3f0ff 100%);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+/* Card principal do perfil */
+.card {
+    border-radius: 2.5rem !important;
+    box-shadow: var(--shadow);
+    border: none;
+    background: var(--white);
+    overflow: visible;
+}
+
+/* Capa com gradiente e efeito de brilho */
+.bg-gradient {
+    background: linear-gradient(90deg, #1a73e8 0%, #00d4ff 100%) !important;
+    position: relative;
+}
+.bg-gradient::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    background: radial-gradient(circle at 80% 20%, #fff8 0%, transparent 70%);
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Avatar centralizado, grande e destacado */
+.position-absolute.top-100.start-50.translate-middle {
+    margin-top: -70px;
+}
+.rounded-circle {
+    border: 5px solid #fff !important;
+    box-shadow: 0 4px 24px 0 rgba(26, 115, 232, 0.15);
+    transition: transform 0.2s;
+}
+.rounded-circle:hover {
+    transform: scale(1.04);
+}
+.btn.btn-primary.rounded-circle {
+    border: 3px solid #fff;
+    background: linear-gradient(135deg, #1a73e8 60%, #00d4ff 100%);
+    box-shadow: 0 2px 8px #1a73e833;
+    transition: background 0.2s, transform 0.2s;
+}
+.btn.btn-primary.rounded-circle:hover {
+    background: linear-gradient(135deg, #1557b0 60%, #00bfff 100%);
+    transform: scale(1.1);
+}
+
+/* Informações do usuário */
+.card-body {
+    background: var(--white);
+    border-radius: 0 0 2.5rem 2.5rem;
+    margin-top: -10px;
+    box-shadow: 0 2px 12px 0 #1a73e80a;
+}
+h2.fw-bold {
+    color: var(--primary);
+    letter-spacing: -1px;
+}
+.text-muted {
+    color: #7b8a9b !important;
+}
+.badge {
+    background: linear-gradient(90deg, #e8f0fe 0%, #f5faff 100%);
+    color: var(--primary) !important;
+    border-radius: 1.5rem;
+    font-weight: 500;
+    box-shadow: 0 1px 4px #1a73e81a;
+}
+.btn-outline-primary {
+    border-radius: 1.5rem;
+    font-weight: 500;
+    border-width: 2px;
+    transition: background 0.2s, color 0.2s;
+}
+.btn-outline-primary:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+/* Estatísticas */
+.row.mt-4.mb-2 > .col-4 {
+    border-right: 1px solid #e3f0ff;
+}
+.row.mt-4.mb-2 > .col-4:last-child {
+    border-right: none;
+}
+.fw-bold.fs-4.text-primary {
+    font-size: 2rem !important;
+    font-weight: 800 !important;
+    color: var(--primary) !important;
+}
+.small.text-muted {
+    color: #7b8a9b !important;
+    font-weight: 500;
+}
+
+/* Abas personalizadas */
+.nav-tabs {
+    border-bottom: none;
+    background: transparent;
+    margin-top: 1rem;
+}
+.nav-tabs .nav-link {
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--primary-dark);
+    font-weight: 600;
+    font-size: 1.08rem;
+    background: none;
+    border-radius: 0;
+    margin-right: 12px;
+    transition: border-color 0.2s, color 0.2s;
+}
+.nav-tabs .nav-link.active {
+    border-bottom: 3px solid var(--primary);
+    color: var(--primary);
+    background: none;
+}
+
+/* Conteúdo das abas */
+.tab-content {
+    background: linear-gradient(90deg, #f5faff 60%, #e3f0ff 100%);
+    border-radius: 1.5rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 2px 12px #1a73e80a;
+}
+
+/* Cards de cursos */
+.card.h-100 {
+    border-radius: 1.5rem !important;
+    box-shadow: 0 2px 8px #1a73e81a;
+    border: none;
+    overflow: hidden;
+}
+.card-img-top {
+    border-radius: 1.5rem 1.5rem 0 0;
+    height: 160px;
+    object-fit: cover;
+}
+.card-title {
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+.badge.bg-success {
+    background: linear-gradient(90deg, #e6ffe6 0%, #d0f5e8 100%) !important;
+    color: #1a7f37 !important;
+    font-weight: 600;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .card {
+        border-radius: 1.2rem !important;
+    }
+    .tab-content {
+        border-radius: 1.2rem;
+    }
+    .position-absolute.top-100.start-50.translate-middle {
+        margin-top: -50px;
+    }
+    .rounded-circle {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    .card-img-top {
+        height: 100px;
+    }
+    #btnTrocarFoto {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 1rem;
+        background: linear-gradient(135deg, #1a73e8 60%, #00d4ff 100%) !important;
+        border: 3px solid #fff;
+        color: #fff;
+    }
+    #btnTrocarFoto:hover {
+        background: linear-gradient(135deg, #1557b0 60%, #00bfff 100%) !important;
+    }
+}
