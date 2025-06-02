@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos | NewTalents</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/cursos.css">
+</head>
+<body class="bg-light">
+    <header class="courses-header text-center">
+        <div class="container position-relative">
+            <!-- Add this button at the start of header -->
+            <a href="index.html" class="btn btn-light position-absolute start-0 top-50 translate-middle-y">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+            <!-- Rest of the header content -->
+            <h1 class="display-4 fw-bold mb-3">Nossos Cursos</h1>
+            <p class="fs-5 mb-0">Explore nossa seleção de cursos e comece sua jornada de aprendizado</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tab-buttons mb-4 d-flex justify-content-center gap-2">
+            <button class="tab-button active border-0" data-category="todos">Todos os Cursos</button>
+            <button class="tab-button border-0" data-category="curto">Curta Duração</button>
+            <button class="tab-button border-0" data-category="medio">Média Duração</button>
+            <button class="tab-button border-0" data-category="longo">Longa Duração</button>
+        </div>
+
+        <div id="courses-container">
+            <div class="course-card" data-duration="curto">
+                <div class="course-info">
+                    <div class="course-content">
+                        <h3 class="course-title">Fotografia Básica</h3>
+                        <p class="course-description">Aprenda os fundamentos da fotografia e composição de imagens</p>
+                        <div class="course-stats">
+                            <span class="duration">
+                                <i class="bi bi-clock"></i> 20h
+                            </span>
+                            <span class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100">Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-duration="medio">
+                <div class="course-info">
+                    <div>
+                        <h3 class="mb-2">Marketing Digital</h3>
+                        <p class="mb-3 text-muted">Desenvolva estratégias eficientes para mídias sociais e marketing online</p>
+                        <div class="course-stats">
+                            <span class="duration">
+                                <i class="bi bi-clock"></i> 40h
+                            </span>
+                            <span class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary ms-auto">Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-duration="longo">
+                <div class="course-info">
+                    <div>
+                        <h3 class="mb-2">Gestão de Projetos</h3>
+                        <p class="mb-3 text-muted">Aprenda metodologias e ferramentas para gerenciar projetos com eficiência</p>
+                        <div class="course-stats">
+                            <span class="duration">
+                                <i class="bi bi-clock"></i> 80h
+                            </span>
+                            <span class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary ms-auto">Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-duration="curto">
+                <div class="course-info">
+                    <div>
+                        <h3 class="mb-2">Design de Interiores</h3>
+                        <p class="mb-3 text-muted">Descubra técnicas para criar ambientes harmoniosos e funcionais</p>
+                        <div class="course-stats">
+                            <span class="duration">
+                                <i class="bi bi-clock"></i> 25h
+                            </span>
+                            <span class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary ms-auto">Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-duration="medio">
+                <div class="course-info">
+                    <div>
+                        <h3 class="mb-2">Gastronomia Básica</h3>
+                        <p class="mb-3 text-muted">Aprenda técnicas culinárias fundamentais e prepare pratos incríveis</p>
+                        <div class="course-stats">
+                            <span class="duration">
+                                <i class="bi bi-clock"></i> 45h
+                            </span>
+                            <span class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary ms-auto">Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-duration="longo">
+                <div class="course-info">
+                    <div>
+                        <h3 class="mb-2">Administração Empresarial</h3>
+                        <p class="mb-3 text-muted">Desenvolva habilidades essenciais para gestão de negócios</p>
+                        <div class="course-stats">
+                            <span class="duration">
+                                <i class="bi bi-clock"></i> 100h
+                            </span>
+                            <span class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary ms-auto">Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-duration="medio">
+                <div class="course-info">
+                    <div>
+                        <h3 class="mb-2">Idiomas - Inglês Intermediário</h3>
+                        <p class="mb-3 text-muted">Aperfeiçoe sua comunicação em inglês com foco em conversação</p>
+                        <div class="course-stats">
+                            <span class="duration">
+                                <i class="bi bi-clock"></i> 60h
+                            </span>
+                            <span class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary ms-auto">Saiba mais</button>
+                </div>
+            </div>
+
+            <div class="course-card" data-duration="curto">
+                <div class="course-info">
+                    <div>
+                        <h3 class="mb-2">Fotografia Básica</h3>
+                        <p class="mb-3 text-muted">Aprenda os fundamentos da fotografia e composição de imagens</p>
+                        <div class="course-stats">
+                            <span class="duration">
+                                <i class="bi bi-clock"></i> 20h
+                            </span>
+                            <span class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary ms-auto">Saiba mais</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const tabs = document.querySelectorAll('.tab-button');
+        const courses = document.querySelectorAll('.course-card');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                const category = tab.dataset.category;
+                
+                courses.forEach(course => {
+                    if (category === 'todos' || course.dataset.duration === category) {
+                        course.style.display = 'flex';
+                    } else {
+                        course.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
