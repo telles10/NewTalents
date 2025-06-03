@@ -47,18 +47,15 @@
     <header class="navbar glass-effect py-2 shadow-sm" style="position:sticky;top:0;z-index:100;">
         <div class="container-fluid d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center gap-3">
-                <span class="menu-icon" id="openSidebar" title="Menu"><i class="bi bi-list"></i></span>
-                <div class="notification-icon-modern-dark position-relative" id="notificationDropdown" title="Notificações" tabindex="0">
-                    <i class="bi bi-bell-fill fs-4"></i>
-                    <div id="notificationMenu" class="dropdown-menu shadow p-3">
-                        <div class="fw-bold mb-2 text-primary"><i class="bi bi-bell me-2"></i>Notificações</div>
-                        <div class="small mb-2"><i class="bi bi-check-circle text-success me-1"></i>Seu cadastro foi aprovado!</div>
-                        <div class="small mb-2"><i class="bi bi-person-plus text-info me-1"></i>Novo tutor disponível para você.</div>
-                        <div class="small mb-2"><i class="bi bi-mortarboard text-warning me-1"></i>Curso recomendado: Front-end Moderno.</div>
-                        <div class="text-end mt-2"><a href="#" class="text-primary small">Ver todas</a></div>
+                <!-- Logo circular menor, símbolo maior -->
+                <div class="d-flex align-items-center gap-2">
+                    <div style="background: #fff; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px #1a73e822;">
+                        <img src="./nt.png" alt="Logo NewTalents" style="width:26px; height:26px; object-fit:contain; border-radius:50%;">
                     </div>
+                    <span class="site-gradient-text ms-2" style="font-size:1.5rem; font-weight:800; letter-spacing:1px;">NewTalents</span>
                 </div>
-                <span class="site-gradient-text ms-3">NewTalents</span>
+                <!-- Ícone de notificação funcional -->
+            
             </div>
             <form class="search-form-modern d-flex align-items-center shadow rounded-pill bg-white px-3 py-1 mx-3 flex-grow-1" style="max-width: 480px; min-width: 220px;">
                 <i class="bi bi-search text-primary fs-5 me-2"></i>
@@ -69,7 +66,7 @@
                 <div class="dropdown" id="userDropdown">
                     <button class="btn btn-light d-flex align-items-center gap-2 rounded-pill px-3 py-1 dropdown-toggle"
                             id="profileBtn" data-bs-toggle="dropdown" aria-expanded="false" style="font-weight:600;">
-                        <img id="userPhoto" src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                        <img id="userPhoto" src="./nt.png"
                              alt="Foto" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">
                         <span id="userName">Usuário</span>
                     </button>
@@ -166,5 +163,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Seu JS -->
     <script defer src="./scripts/home.js"></script>
+    <script src="scripts/bloqueio-caminhos.js"></script>
 </body>
 </html>

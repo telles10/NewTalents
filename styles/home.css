@@ -132,8 +132,17 @@ h1{font-size:2.7rem;color:#222;margin-bottom:48px;text-align:center;font-weight:
 .dropdown-item.text-danger {
     font-weight: 500;
 }
-#logoutBtn {
-    margin-left: 8px;
+#logoutBtn,
+.logout-btn-custom {
+    padding: 3px 2px 3px 2px !important; /* laterais bem menores */
+    font-size: 0.82rem !important;
+    border-radius: 9px !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    line-height: 1 !important;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 /* Avatar com borda azul e efeito hover */
@@ -164,7 +173,7 @@ h1{font-size:2.7rem;color:#222;margin-bottom:48px;text-align:center;font-weight:
     background: linear-gradient(90deg, #ff5858 0%, #ffb347 100%);
     border: none;
     border-radius: 10px;
-    padding: 3px 10px 3px 8px;
+    padding: 3px 6px 3px 6px; /* laterais menores */
     font-weight: 600;
     font-size: 0.85rem;
     min-width: 0;
@@ -185,6 +194,64 @@ h1{font-size:2.7rem;color:#222;margin-bottom:48px;text-align:center;font-weight:
     text-decoration: none;
 }
 .logout-btn-custom i {
+    font-size: 0.85rem;
+    margin-right: 1px;
+}
+.notificacao-superficial {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    margin: 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    min-height: 38px;
+    border-radius: 50%;
+}
+.notificacao-superficial:hover, .notificacao-superficial:focus {
+    background: rgba(0,123,255,0.07);
+    box-shadow: 0 2px 16px #007bff22;
+    transform: scale(1.13);
+}
+.notificacao-superficial.clicado {
+    transform: scale(0.93);
+    box-shadow: 0 0 0 transparent;
+}
+.notificacao-superficial .bi-bell {
+    font-size: 1.7rem;
+    color: #007bff;
+    filter: drop-shadow(0 2px 8px #007bff22);
+    transition: color 0.18s;
+}
+.notificacao-superficial:hover .bi-bell {
+    color: #0056b3;
+}
+.notificacao-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 19px;
+    height: 19px;
+    background: linear-gradient(90deg,#ff5858 0%,#ffb347 100%);
+    color: #fff;
     font-size: 0.95rem;
-    margin-right: 2px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px #ff585822;
+    border: 2px solid #fff;
+    z-index: 2;
+    pointer-events: none;
+    transition: background 0.18s;
+}
+.notificacao-superficial:active .notificacao-badge {
+    background: #ff5858;
 }

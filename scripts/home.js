@@ -1,4 +1,41 @@
 document.addEventListener('DOMContentLoaded', function () {
+    const usuarioLogado = localStorage.getItem('usuarioLogado');
+    const pagina = window.location.pathname.split('/').pop().toLowerCase();
+    const paginasPublicas = ['index.html', 'login.html', 'cadastro.html', ''];
+    const paginasPrivadas = ['home.html', 'cursos.html', 'tutores.html', 'mentoria.html', 'curriculo.html', 'mentor.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentorIA.html', 'mentorIa.html', 'mentoriaIA.html', 'mentorIA.html'];
+
+    // Se NÃO estiver logado e tentar acessar página privada, volta para anterior ou index
+    if (!usuarioLogado && !paginasPublicas.includes(pagina)) {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = "index.html";
+        }
+        return;
+    }
+
+    // Se estiver logado e tentar acessar página pública, volta para anterior ou home
+    if (usuarioLogado && paginasPublicas.includes(pagina)) {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = "home.html";
+        }
+        return;
+    }
+
+    // Se NÃO estiver logado, bloqueia acesso à home.html
+    if (!usuarioLogado && pagina === 'home.html') {
+        alert('Você precisa estar logado para acessar a Home.');
+        window.location.href = 'index.html';
+    }
+
+    // Se estiver logado, bloqueia acesso a todas as páginas exceto home.html
+    if (usuarioLogado && pagina !== 'home.html') {
+        alert('Você já está logado. Redirecionando para a Home.');
+        window.location.href = 'home.html';
+    }
+
     // Sidebar funcional
     const sidebar = document.getElementById('sidebar');
     const openSidebar = document.getElementById('openSidebar');
@@ -20,21 +57,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Notificação funcional
+    // Notificação funcional com efeito superficial e animação
     const notificationDropdown = document.getElementById('notificationDropdown');
-    const notificationMenu = document.getElementById('notificationMenu');
-    if (notificationDropdown && notificationMenu) {
+    if (notificationDropdown) {
+        // Adiciona classe para animação CSS
+        notificationDropdown.classList.add('notificacao-superficial');
         notificationDropdown.addEventListener('click', function (e) {
-            e.stopPropagation();
-            notificationMenu.classList.toggle('show');
-        });
-        document.addEventListener('click', function (e) {
-            if (!notificationMenu.contains(e.target) && !notificationDropdown.contains(e.target)) {
-                notificationMenu.classList.remove('show');
-            }
-        });
-        notificationMenu.addEventListener('click', function(e){
-            e.stopPropagation();
+            e.preventDefault();
+            // Animação de clique
+            notificationDropdown.classList.add('clicado');
+            setTimeout(() => {
+                notificationDropdown.classList.remove('clicado');
+                window.location.href = "notificação.html";
+            }, 180); // tempo da animação
         });
     }
 
@@ -55,7 +90,9 @@ document.addEventListener('DOMContentLoaded', function () {
         userName.textContent = user.nome ? user.nome : user.email;
     }
     if (userPhoto) {
-        userPhoto.src = foto ? foto : "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+        // Mostra a foto do currículo se existir, senão usa a fotoUsuario, senão usa padrão
+        const fotoSalva = localStorage.getItem('cv_foto');
+        userPhoto.src = fotoSalva ? fotoSalva : (foto ? foto : "https://cdn-icons-png.flaticon.com/512/149/149071.png");
     }
 
     // Dropdown manual para evitar conflito com Bootstrap JS
@@ -77,13 +114,32 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Sair
+    // Sair - redireciona para index.html
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function (e) {
             e.preventDefault();
-            localStorage.removeItem('usuarioLogado');
-            window.location.href = "index.html";
+            window.location.href = 'index.html';
         });
     }
+
+    // Atualiza badge de notificações na navbar
+    function atualizarBadgeNotificacoes() {
+        const badge = document.getElementById('notificacaoBadge');
+        let notificacoes = [];
+        try {
+            notificacoes = JSON.parse(localStorage.getItem('notificacoes')) || [];
+        } catch {}
+        const qtd = notificacoes.length;
+        if (badge) {
+            if (qtd > 0) {
+                badge.textContent = qtd > 9 ? '9+' : qtd;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+    }
+    atualizarBadgeNotificacoes();
+    window.addEventListener('storage', atualizarBadgeNotificacoes);
 });

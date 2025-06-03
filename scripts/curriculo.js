@@ -60,6 +60,9 @@ window.addEventListener('DOMContentLoaded', function() {
     // Foto de perfil personalizada e salva
     const fotoInput = document.getElementById("fotoPerfil");
     const fotoPreview = document.getElementById("fotoPreview");
+    let fotoTemp = null;
+
+    // Ao selecionar uma foto, só mostra o preview (não salva ainda)
     if (fotoInput && fotoPreview) {
         const savedImg = localStorage.getItem("cv_foto");
         if (savedImg) fotoPreview.src = savedImg;
@@ -69,36 +72,83 @@ window.addEventListener('DOMContentLoaded', function() {
                 const reader = new FileReader();
                 reader.onload = function(evt) {
                     fotoPreview.src = evt.target.result;
-                    localStorage.setItem("cv_foto", evt.target.result);
+                    fotoTemp = evt.target.result; // Só salva na variável temporária
                 };
                 reader.readAsDataURL(file);
             }
         });
     }
-});
 
-window.addEventListener('DOMContentLoaded', function() {
     // Função para habilitar/desabilitar campos
     function setEditable(editable) {
         const fields = document.querySelectorAll(
             "#nome, #cargo, #localizacao, #email, #telefone, #sobre, #formacao, #experiencia, #habilidades, #idiomas"
         );
         fields.forEach(f => { if (f) f.disabled = !editable; });
+        if (fotoInput) fotoInput.disabled = !editable;
     }
 
-    // Inicialmente só pode salvar, editar desabilitado
-    setEditable(true);
-    document.getElementById('btnSalvar').disabled = false;
-    document.getElementById('btnEditar').disabled = true;
+    // Estado de edição salvo no localStorage
+    let editavel = localStorage.getItem('curriculo_editavel');
+    if (editavel === null) editavel = "true";
+    setEditable(editavel === "true");
+    document.getElementById('btnSalvar').disabled = editavel !== "true";
+    document.getElementById('btnEditar').disabled = editavel === "true";
 
     document.getElementById('btnSalvar').onclick = function() {
         setEditable(false);
         this.disabled = true;
         document.getElementById('btnEditar').disabled = false;
+        localStorage.setItem('curriculo_editavel', "false");
+        // Salva a foto apenas ao clicar em salvar
+        if (fotoTemp) {
+            localStorage.setItem("cv_foto", fotoTemp);
+            fotoTemp = null;
+        }
+        window.notificarAcao && window.notificarAcao('curriculo_salvo');
+        mostrarMensagem('Currículo salvo com sucesso!', 'success');
     };
     document.getElementById('btnEditar').onclick = function() {
         setEditable(true);
         this.disabled = true;
         document.getElementById('btnSalvar').disabled = false;
+        localStorage.setItem('curriculo_editavel', "true");
     };
+
+    // Função para mostrar mensagem temporária
+    function mostrarMensagem(texto, tipo = 'info') {
+        let msg = document.createElement('div');
+        msg.className = `alert alert-${tipo} position-fixed top-0 start-50 translate-middle-x mt-3 shadow`;
+        msg.style.zIndex = 9999;
+        msg.textContent = texto;
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 2500);
+    }
+
+    // BLOQUEIO DE CAMINHOS
+    const usuarioLogado = localStorage.getItem('usuarioLogado');
+    const pagina = window.location.pathname.split('/').pop().toLowerCase();
+    const paginasPublicas = ['index.html', 'login.html', 'cadastro.html', ''];
+    const paginasPrivadas = ['home.html', 'cursos.html', 'tutores.html', 'mentoria.html', 'curriculo.html', 'mentor.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentorIA.html', 'mentorIa.html', 'mentoriaIA.html', 'mentorIA.html'];
+
+    // Se NÃO estiver logado e tentar acessar página privada, volta para anterior ou index
+    if (!usuarioLogado && !paginasPublicas.includes(pagina)) {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = "index.html";
+        }
+        return;
+    }
+
+    // Se estiver logado e tentar acessar página pública, volta para anterior ou home
+    if (usuarioLogado && paginasPublicas.includes(pagina)) {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = "home.html";
+        }
+        return;
+    }
 });
+
