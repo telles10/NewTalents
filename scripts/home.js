@@ -23,11 +23,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Notificação funcional com efeito superficial e animação
     const notificationDropdown = document.getElementById('notificationDropdown');
     if (notificationDropdown) {
-        // Adiciona classe para animação CSS
         notificationDropdown.classList.add('notificacao-superficial');
         notificationDropdown.addEventListener('click', function (e) {
             e.preventDefault();
-            // Animação de clique
             notificationDropdown.classList.add('clicado');
             setTimeout(() => {
                 notificationDropdown.classList.remove('clicado');
@@ -44,19 +42,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Perfil do usuário na navbar
-    const user = JSON.parse(localStorage.getItem('usuarioLogado'));
-    const userName = document.getElementById('userName');
-    const userPhoto = document.getElementById('userPhoto');
-    const foto = localStorage.getItem('fotoUsuario');
-    if (user && userName) {
-        userName.textContent = user.nome ? user.nome : user.email;
+    // Exibir nome ou email do usuário logado na navbar e foto
+    function atualizarPerfilNavbar() {
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+        const userNameSpan = document.getElementById('userName');
+        const userPhoto = document.getElementById('userPhoto');
+        if (usuarioLogado && userNameSpan) {
+            userNameSpan.textContent = usuarioLogado.nome || usuarioLogado.email;
+        }
+        if (usuarioLogado && usuarioLogado.foto && userPhoto) {
+            userPhoto.src = usuarioLogado.foto;
+        } else if (userPhoto) {
+            userPhoto.src = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+        }
     }
-    if (userPhoto) {
-        // Mostra a foto do currículo se existir, senão usa a fotoUsuario, senão usa padrão
-        const fotoSalva = localStorage.getItem('cv_foto');
-        userPhoto.src = fotoSalva ? fotoSalva : (foto ? foto : "https://cdn-icons-png.flaticon.com/512/149/149071.png");
-    }
+    atualizarPerfilNavbar();
 
     // Dropdown manual para evitar conflito com Bootstrap JS
     const profileBtn = document.getElementById('profileBtn');
@@ -77,45 +77,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Sair - redireciona para index.html
+    // Sair - redireciona para index.html e limpa dados do usuário
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function (e) {
             e.preventDefault();
-            // Remover todos os dados do usuário do localStorage
             localStorage.removeItem('usuarioLogado');
             localStorage.removeItem('fotoUsuario');
             localStorage.removeItem('cv_foto');
-            // Adicione aqui outros itens relacionados ao usuário, se necessário
-
             window.location.href = "index.html";
         });
-    }
-
-    // Atualiza badge de notificações na navbar
-    function atualizarBadgeNotificacoes() {
-        const badge = document.getElementById('notificacaoBadge');
-        let notificacoes = [];
-        try {
-            notificacoes = JSON.parse(localStorage.getItem('notificacoes')) || [];
-        } catch {}
-        const qtd = notificacoes.length;
-        if (badge) {
-            if (qtd > 0) {
-                badge.textContent = qtd > 9 ? '9+' : qtd;
-                badge.style.display = 'flex';
-            } else {
-                badge.style.display = 'none';
-            }
-        }
-    }
-    atualizarBadgeNotificacoes();
-    window.addEventListener('storage', atualizarBadgeNotificacoes);
-
-    // Exibir nome ou email do usuário logado na navbar
-    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
-    const userNameSpan = document.getElementById('userName');
-    if (usuarioLogado && userNameSpan) {
-        userNameSpan.textContent = usuarioLogado.nome || usuarioLogado.email;
     }
 });

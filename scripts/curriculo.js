@@ -41,88 +41,87 @@ window.addEventListener('DOMContentLoaded', function() {
 // Adicione ou mantenha este script para personalização e foto de perfil
 // filepath: \\sn928escoladfp1\pastas alunos$\54946783857\Desktop\projeto\NewTalents\scripts\curriculo.js
 window.addEventListener('DOMContentLoaded', function() {
-    // Salvar e carregar campos personalizáveis
-    const fields = [
-        "nome", "cargo", "localizacao", "email", "telefone",
-        "sobre", "formacao", "experiencia", "habilidades", "idiomas"
+    const fotoPerfil = document.getElementById('fotoPerfil');
+    const fotoPreview = document.getElementById('fotoPreview');
+    const btnSalvar = document.getElementById('btnSalvar');
+    const btnEditar = document.getElementById('btnEditar');
+    const campos = [
+        'nome', 'cargo', 'localizacao', 'email', 'telefone',
+        'sobre', 'formacao', 'experiencia', 'habilidades', 'idiomas'
     ];
-    fields.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            const saved = localStorage.getItem("cv_" + id);
-            if (saved) el.value = saved;
-            el.addEventListener("input", () => {
-                localStorage.setItem("cv_" + id, el.value);
-            });
+
+    // Carregar dados do currículo e foto
+    function carregarCurriculo() {
+        const dados = JSON.parse(localStorage.getItem('curriculo')) || {};
+        campos.forEach(id => {
+            const el = document.getElementById(id);
+            if (el && dados[id]) el.value = dados[id];
+        });
+        if (dados.foto) {
+            fotoPreview.src = dados.foto;
+        } else {
+            // Se não houver foto no curriculo, tenta pegar do usuarioLogado
+            const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+            if (usuario && usuario.foto) fotoPreview.src = usuario.foto;
+        }
+        setCamposEditaveis(false);
+        btnEditar.disabled = false;
+        btnSalvar.disabled = true;
+    }
+
+    function setCamposEditaveis(editavel) {
+        campos.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.disabled = !editavel;
+        });
+        fotoPerfil.disabled = !editavel;
+    }
+
+    // Trocar foto ao selecionar arquivo
+    fotoPerfil.addEventListener('change', function () {
+        const file = fotoPerfil.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                fotoPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
     });
 
-    // Foto de perfil personalizada e salva
-    const fotoInput = document.getElementById("fotoPerfil");
-    const fotoPreview = document.getElementById("fotoPreview");
-    let fotoTemp = null;
+    // Editar currículo
+    btnEditar.addEventListener('click', function () {
+        setCamposEditaveis(true);
+        btnSalvar.disabled = false;
+        btnEditar.disabled = true;
+    });
 
-    // Ao selecionar uma foto, só mostra o preview (não salva ainda)
-    if (fotoInput && fotoPreview) {
-        const savedImg = localStorage.getItem("cv_foto");
-        if (savedImg) fotoPreview.src = savedImg;
-        fotoInput.addEventListener("change", function(e) {
-            const file = e.target.files[0];
-            if (file && file.type.startsWith("image/")) {
-                const reader = new FileReader();
-                reader.onload = function(evt) {
-                    fotoPreview.src = evt.target.result;
-                    fotoTemp = evt.target.result; // Só salva na variável temporária
-                };
-                reader.readAsDataURL(file);
-            }
+    // Salvar currículo e foto
+    btnSalvar.addEventListener('click', function () {
+        const dados = {};
+        campos.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) dados[id] = el.value;
         });
-    }
+        dados.foto = fotoPreview.src;
+        localStorage.setItem('curriculo', JSON.stringify(dados));
 
-    // Função para habilitar/desabilitar campos
-    function setEditable(editable) {
-        const fields = document.querySelectorAll(
-            "#nome, #cargo, #localizacao, #email, #telefone, #sobre, #formacao, #experiencia, #habilidades, #idiomas"
-        );
-        fields.forEach(f => { if (f) f.disabled = !editable; });
-        if (fotoInput) fotoInput.disabled = !editable;
-    }
-
-    // Estado de edição salvo no localStorage
-    let editavel = localStorage.getItem('curriculo_editavel');
-    if (editavel === null) editavel = "true";
-    setEditable(editavel === "true");
-    document.getElementById('btnSalvar').disabled = editavel !== "true";
-    document.getElementById('btnEditar').disabled = editavel === "true";
-
-    document.getElementById('btnSalvar').onclick = function() {
-        setEditable(false);
-        this.disabled = true;
-        document.getElementById('btnEditar').disabled = false;
-        localStorage.setItem('curriculo_editavel', "false");
-        // Salva a foto apenas ao clicar em salvar
-        if (fotoTemp) {
-            localStorage.setItem("cv_foto", fotoTemp);
-            fotoTemp = null;
+        // Atualiza foto do usuário logado (navbar)
+        let usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+        if (usuario) {
+            usuario.foto = fotoPreview.src;
+            localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
         }
-        window.notificarAcao && window.notificarAcao('curriculo_salvo');
-        mostrarMensagem('Currículo salvo com sucesso!', 'success');
-    };
-    document.getElementById('btnEditar').onclick = function() {
-        setEditable(true);
-        this.disabled = true;
-        document.getElementById('btnSalvar').disabled = false;
-        localStorage.setItem('curriculo_editavel', "true");
-    };
+        const userPhoto = document.getElementById('userPhoto');
+        if (userPhoto) userPhoto.src = fotoPreview.src;
 
-    // Função para mostrar mensagem temporária
-    function mostrarMensagem(texto, tipo = 'info') {
-        let msg = document.createElement('div');
-        msg.className = `alert alert-${tipo} position-fixed top-0 start-50 translate-middle-x mt-3 shadow`;
-        msg.style.zIndex = 9999;
-        msg.textContent = texto;
-        document.body.appendChild(msg);
-        setTimeout(() => msg.remove(), 2500);
-    }
+        setCamposEditaveis(false);
+        btnEditar.disabled = false;
+        btnSalvar.disabled = true;
+        alert('Currículo salvo com sucesso!');
+    });
+
+    carregarCurriculo();
+});
 
 

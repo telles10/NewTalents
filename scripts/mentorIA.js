@@ -1,4 +1,4 @@
-
+document.addEventListener('DOMContentLoaded', function () {
     const micBtn = document.getElementById('micBtn');
     const iaBubble = document.getElementById('iaBubble');
     const userMessage = document.getElementById('userMessage');
@@ -10,69 +10,71 @@
     let utter;
 
     // --- Reconhecimento de voz ---
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        recognition = new SpeechRecognition();
-        recognition.lang = 'pt-BR';
-        recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
+    if (micBtn && iaBubble && userMessage && sendMessage) {
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'pt-BR';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
 
-        recognition.onstart = () => {
-            recognizing = true;
-            micBtn.classList.add('active');
-            iaBubble.innerHTML = "Estou ouvindo... Fale sua pergunta!";
-        };
-        recognition.onend = () => {
-            recognizing = false;
-            micBtn.classList.remove('active');
-        };
-        recognition.onerror = (event) => {
-            recognizing = false;
-            micBtn.classList.remove('active');
-            iaBubble.innerHTML = "Não consegui ouvir. Clique e tente de novo!<br><small>"+(event.error||"")+"</small>";
-        };
-        recognition.onresult = (event) => {
-            const msg = event.results[0][0].transcript;
-            userMessage.value = msg;
-            iaBubble.innerHTML = `<span class="text-primary"><i class="bi bi-person"></i> ${msg}</span>`;
-            sendChat(msg);
-        };
-    } else {
-        micBtn.disabled = true;
-        iaBubble.innerHTML = "Seu navegador não suporta reconhecimento de voz.";
-    }
+            recognition.onstart = () => {
+                recognizing = true;
+                micBtn.classList.add('active');
+                iaBubble.innerHTML = "Estou ouvindo... Fale sua pergunta!";
+            };
+            recognition.onend = () => {
+                recognizing = false;
+                micBtn.classList.remove('active');
+            };
+            recognition.onerror = (event) => {
+                recognizing = false;
+                micBtn.classList.remove('active');
+                iaBubble.innerHTML = "Não consegui ouvir. Clique e tente de novo!<br><small>" + (event.error || "") + "</small>";
+            };
+            recognition.onresult = (event) => {
+                const msg = event.results[0][0].transcript;
+                userMessage.value = msg;
+                iaBubble.innerHTML = `<span class="text-primary"><i class="bi bi-person"></i> ${msg}</span>`;
+                sendChat(msg);
+            };
 
-    micBtn.addEventListener('click', function () {
-        if (recognition && !recognizing) {
-            stopVoice();
-            recognition.start();
+            micBtn.addEventListener('click', function () {
+                if (recognition && !recognizing) {
+                    stopVoice();
+                    recognition.start();
+                }
+            });
+        } else {
+            micBtn.disabled = true;
+            iaBubble.innerHTML = "Seu navegador não suporta reconhecimento de voz.";
         }
-    });
 
-    sendMessage.addEventListener('click', () => {
-        stopVoice();
-        sendChat(userMessage.value);
-    });
-    userMessage.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
+        sendMessage.addEventListener('click', () => {
             stopVoice();
             sendChat(userMessage.value);
+        });
+        userMessage.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                stopVoice();
+                sendChat(userMessage.value);
+            }
+        });
+
+        // Para a voz ao clicar na barra do chat (campo de digitação)
+        userMessage.addEventListener('focus', stopVoice);
+
+        // Para a voz ao clicar no botão de voltar
+        voltarBtns.forEach(btn => {
+            btn.addEventListener('click', stopVoice);
+        });
+
+        // Para a voz ao clicar na seta de voltar no canto superior esquerdo
+        const setaVoltar = document.querySelector('.btn-back-nt');
+        if (setaVoltar) {
+            setaVoltar.addEventListener('click', stopVoice);
         }
-    });
-
-    // Para a voz ao clicar na barra do chat (campo de digitação)
-    userMessage.addEventListener('focus', stopVoice);
-
-    // Para a voz ao clicar no botão de voltar
-    voltarBtns.forEach(btn => {
-        btn.addEventListener('click', stopVoice);
-    });
-
-    // Para a voz ao clicar na seta de voltar no canto superior esquerdo
-    const setaVoltar = document.querySelector('.btn-back-nt');
-    if (setaVoltar) {
-        setaVoltar.addEventListener('click', stopVoice);
     }
 
     // --- IA gratuita baseada em respostas inteligentes e sites confiáveis ---
@@ -350,12 +352,10 @@
         if ('speechSynthesis' in window) {
             utter = new SpeechSynthesisUtterance(text.replace(/<[^>]+>/g, ''));
             utter.lang = 'pt-BR';
-            utter.rate = 1.7; // Bem mais rápida
-            utter.pitch = 1.18; // Mais aguda/humana
+            utter.rate = 1.7;
+            utter.pitch = 1.18;
 
-            // Tenta garantir uma voz feminina brasileira
             let voices = synth.getVoices();
-            // Procura por vozes femininas conhecidas
             let voice = voices.find(v =>
                 v.lang === 'pt-BR' && v.gender === 'female'
             );
@@ -366,7 +366,6 @@
             if (!voice) voice = voices.find(v => v.lang.startsWith('pt'));
             if (voice) utter.voice = voice;
 
-            // Se ainda não carregou as vozes, espera o evento e tenta de novo
             if (voices.length === 0) {
                 synth.onvoiceschanged = () => {
                     let voices2 = synth.getVoices();
