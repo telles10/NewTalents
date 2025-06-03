@@ -48,11 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const telefone = document.getElementById('telefone').value.trim();
             const senha = document.getElementById('senha').value;
             const confirmar = document.getElementById('confirmarSenha').value;
+
             if (!nome || !email || !telefone || !senha || !confirmar) {
                 alert('Preencha todos os campos.');
                 return;
             }
-            // Validação para formato internacional: +55 (11) 91234-5678
             const telPattern = /^\+\d{1,3}\s?\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/;
             if (!telPattern.test(telefone)) {
                 alert('Digite o telefone no formato: +55 (11) 91234-5678');
@@ -64,38 +64,26 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            // Verifica duplicidade de email, telefone ou senha
+            if (usuarios.some(u => u.email === email)) {
+                alert('Este email já está cadastrado. Use outro.');
+                return;
+            }
+            if (usuarios.some(u => u.telefone === telefone)) {
+                alert('Este telefone já está cadastrado. Use outro.');
+                return;
+            }
+            if (usuarios.some(u => u.senha === senha)) {
+                alert('Esta senha já está em uso. Escolha outra senha.');
+                return;
+            }
+
             usuarios.push({ nome, email, telefone, senha });
             localStorage.setItem('usuarios', JSON.stringify(usuarios));
-
             alert('Cadastro realizado com sucesso!');
             form.reset();
             window.location.href = "login.html";
         });
-    }
-
-    const usuarioLogado = localStorage.getItem('usuarioLogado');
-    const pagina = window.location.pathname.split('/').pop().toLowerCase();
-    const paginasPublicas = ['index.html', 'login.html', 'cadastro.html', ''];
-    const paginasPrivadas = ['home.html', 'cursos.html', 'tutores.html', 'mentoria.html', 'curriculo.html', 'mentor.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentorIA.html', 'mentorIa.html', 'mentoriaIA.html', 'mentorIA.html'];
-
-    // Se NÃO estiver logado e tentar acessar página privada, volta para anterior ou index
-    if (!usuarioLogado && !paginasPublicas.includes(pagina)) {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "index.html";
-        }
-        return;
-    }
-
-    // Se estiver logado e tentar acessar página pública, volta para anterior ou home
-    if (usuarioLogado && paginasPublicas.includes(pagina)) {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "home.html";
-        }
-        return;
     }
 });
 

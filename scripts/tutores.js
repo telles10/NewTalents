@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function () {
+
+
     // Chat Modal Bootstrap
     const chatModal = new bootstrap.Modal(document.getElementById('chatModal'));
     const chatArea = document.getElementById('chatArea');
@@ -65,32 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return "Prepare-se pesquisando sobre a empresa, revisando seu currículo e praticando respostas para perguntas comuns.";
         }
         return "Estou aqui para ajudar! Faça outra pergunta ou peça uma simulação de entrevista.";
-    }
-
-    // BLOQUEIO DE CAMINHOS
-    const usuarioLogado = localStorage.getItem('usuarioLogado');
-    const pagina = window.location.pathname.split('/').pop().toLowerCase();
-    const paginasPublicas = ['index.html', 'login.html', 'cadastro.html', ''];
-    const paginasPrivadas = ['home.html', 'cursos.html', 'tutores.html', 'mentoria.html', 'curriculo.html', 'mentor.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentorIA.html', 'mentorIa.html', 'mentoriaIA.html', 'mentorIA.html'];
-
-    // Se NÃO estiver logado e tentar acessar página privada, volta para a anterior ou index
-    if (!usuarioLogado && !paginasPublicas.includes(pagina)) {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "index.html";
-        }
-        return;
-    }
-
-    // Se estiver logado e tentar acessar página pública, volta para a anterior ou home
-    if (usuarioLogado && paginasPublicas.includes(pagina)) {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "home.html";
-        }
-        return;
     }
 });
 

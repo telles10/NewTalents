@@ -119,32 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // BLOQUEIO DE CAMINHOS
-    const usuarioLogado = localStorage.getItem('usuarioLogado');
-    const pagina = window.location.pathname.split('/').pop().toLowerCase();
-    const paginasPublicas = ['index.html', 'login.html', 'cadastro.html', ''];
-    const paginasPrivadas = ['home.html', 'cursos.html', 'tutores.html', 'mentoria.html', 'curriculo.html', 'mentor.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentorIA.html', 'mentorIa.html', 'mentoriaIA.html', 'mentorIA.html'];
-
-    // Se NÃO estiver logado e tentar acessar página privada, volta para anterior ou index
-    if (!usuarioLogado && !paginasPublicas.includes(pagina)) {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "index.html";
-        }
-        return;
-    }
-
-    // Se estiver logado e tentar acessar página pública, volta para anterior ou home
-    if (usuarioLogado && paginasPublicas.includes(pagina)) {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "home.html";
-        }
-        return;
-    }
-});
-
+  
 
 

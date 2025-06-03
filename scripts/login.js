@@ -43,50 +43,18 @@ document.addEventListener('DOMContentLoaded', function () {
     if (form) {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
-            const nome = document.getElementById('nome') ? document.getElementById('nome').value.trim() : '';
             const email = document.getElementById('email').value.trim();
-            const senha = document.getElementById('senha').value.trim();
-            if (!email || !senha) {
-                alert('Preencha todos os campos.');
-                return;
+            const senha = document.getElementById('senha').value;
+            const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            const usuario = usuarios.find(u => u.email === email && u.senha === senha);
+            if (usuario) {
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+                window.location.href = "home.html";
+            } else {
+                alert('Email ou senha inválidos!');
             }
-
-            // Salva o login na lista de logins
-            let logins = JSON.parse(localStorage.getItem('logins')) || [];
-            logins.push({ nome, email, senha, data: new Date().toISOString() });
-            localStorage.setItem('logins', JSON.stringify(logins));
-
-            // Salva o usuário logado
-            localStorage.setItem('usuarioLogado', JSON.stringify({ nome, email }));
-
-            // Redireciona para home.html
-            window.location.href = "home.html";
         });
     }
-
-    const usuarioLogado = localStorage.getItem('usuarioLogado');
-    const pagina = window.location.pathname.split('/').pop().toLowerCase();
-    const paginasPublicas = ['index.html', 'login.html', 'cadastro.html', ''];
-    const paginasPrivadas = ['home.html', 'cursos.html', 'tutores.html', 'mentoria.html', 'curriculo.html', 'mentor.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentorIA.html', 'mentorIa.html', 'mentoriaIA.html', 'mentorIA.html'];
-
-    // Se NÃO estiver logado e tentar acessar página privada, volta para anterior ou index
-    if (!usuarioLogado && !paginasPublicas.includes(pagina)) {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "index.html";
-        }
-        return;
-    }
-
-    // Se estiver logado e tentar acessar página pública, volta para anterior ou home
-    if (usuarioLogado && paginasPublicas.includes(pagina)) {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "home.html";
-        }
-        return;
-    }
 });
+
 

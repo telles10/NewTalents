@@ -1,41 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const usuarioLogado = localStorage.getItem('usuarioLogado');
-    const pagina = window.location.pathname.split('/').pop().toLowerCase();
-    const paginasPublicas = ['index.html', 'login.html', 'cadastro.html', ''];
-    const paginasPrivadas = ['home.html', 'cursos.html', 'tutores.html', 'mentoria.html', 'curriculo.html', 'mentor.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentoriaia.html', 'mentoriaia.html', 'mentorai.html', 'mentorIA.html', 'mentorIa.html', 'mentoriaIA.html', 'mentorIA.html'];
-
-    // Se NÃO estiver logado e tentar acessar página privada, volta para anterior ou index
-    if (!usuarioLogado && !paginasPublicas.includes(pagina)) {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "index.html";
-        }
-        return;
-    }
-
-    // Se estiver logado e tentar acessar página pública, volta para anterior ou home
-    if (usuarioLogado && paginasPublicas.includes(pagina)) {
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = "home.html";
-        }
-        return;
-    }
-
-    // Se NÃO estiver logado, bloqueia acesso à home.html
-    if (!usuarioLogado && pagina === 'home.html') {
-        alert('Você precisa estar logado para acessar a Home.');
-        window.location.href = 'index.html';
-    }
-
-    // Se estiver logado, bloqueia acesso a todas as páginas exceto home.html
-    if (usuarioLogado && pagina !== 'home.html') {
-        alert('Você já está logado. Redirecionando para a Home.');
-        window.location.href = 'home.html';
-    }
-
     // Sidebar funcional
     const sidebar = document.getElementById('sidebar');
     const openSidebar = document.getElementById('openSidebar');
@@ -119,7 +82,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function (e) {
             e.preventDefault();
-            window.location.href = 'index.html';
+            // Remover todos os dados do usuário do localStorage
+            localStorage.removeItem('usuarioLogado');
+            localStorage.removeItem('fotoUsuario');
+            localStorage.removeItem('cv_foto');
+            // Adicione aqui outros itens relacionados ao usuário, se necessário
+
+            window.location.href = "index.html";
         });
     }
 
@@ -142,4 +111,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     atualizarBadgeNotificacoes();
     window.addEventListener('storage', atualizarBadgeNotificacoes);
+
+    // Exibir nome ou email do usuário logado na navbar
+    const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+    const userNameSpan = document.getElementById('userName');
+    if (usuarioLogado && userNameSpan) {
+        userNameSpan.textContent = usuarioLogado.nome || usuarioLogado.email;
+    }
 });
