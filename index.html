@@ -151,7 +151,76 @@
         </section>
     </main>
     <div class="background-gradient"></div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script defer src="./scripts/script.js"></script>
+
+    <!-- Modal personalizado -->
+<div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="cadastroModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg border-0">
+      <div class="modal-body text-center py-5">
+        <div class="mb-3">
+          <!-- Logo personalizada -->
+          <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-gradient shadow"
+                style="width:80px;height:80px;background:linear-gradient(135deg,#0d6efd 60%,#00c6ff 100%);">
+            <span style="font-size:2.3rem;font-weight:800;color:#fff;letter-spacing:-2px;font-family:'Segoe UI',Arial,sans-serif;">NT</span>
+          </span>
+        </div>
+        <h4 class="fw-bold mb-2 text-primary">Crie sua conta gratuita!</h4>
+        <p class="mb-4 fs-5 text-secondary">
+          Para acessar esta funcionalidade, faça seu cadastro e aproveite todos os recursos da plataforma <span class="fw-bold text-primary">NewTalents</span>.
+        </p>
+        <a id="btnCadastroAgora" href="#" class="btn btn-primary btn-lg rounded-pill px-5 shadow-sm">
+          <i class="bi bi-person-plus me-2"></i>Fazer cadastro agora
+        </a>
+        <div class="mt-4">
+          <button type="button" class="btn btn-link text-muted" data-bs-dismiss="modal">Agora não</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script de bloqueio -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+    if (!usuario) {
+        const modalEl = document.getElementById('cadastroModal');
+        const modal = new bootstrap.Modal(modalEl);
+        let modalAberto = false;
+
+        // Seleciona todos os links e botões
+        const botoes = document.querySelectorAll('a, button');
+        botoes.forEach(btn => {
+            const isLogin = btn.matches('a[href="login.html"], button[href="login.html"]');
+            const isComeceAgora = btn.textContent && btn.textContent.toLowerCase().includes('comece agora');
+            if (!isLogin && !isComeceAgora) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (!modalAberto) {
+                        modal.show();
+                        modalAberto = true;
+                    }
+                });
+            }
+        });
+
+        // Botão "Fazer cadastro agora" redireciona
+        document.getElementById('btnCadastroAgora').onclick = function(e) {
+            e.preventDefault();
+            window.location.href = "cadastro.html";
+        };
+
+        // Ao fechar o modal, libera para abrir de novo só no próximo clique
+        modalEl.addEventListener('hidden.bs.modal', function () {
+            modalAberto = false;
+        });
+    }
+});
+</script>
+<!-- Outros scripts seus -->
+<script defer src="./scripts/script.js"></script>
 </body>
 </html>

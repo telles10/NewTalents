@@ -6,17 +6,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (openSidebar && sidebar && closeSidebar && overlay) {
         openSidebar.addEventListener('click', function () {
-            sidebar.classList.add('open');
+            sidebar.classList.add('active'); // <-- aqui
             overlay.style.display = 'block';
         });
 
         closeSidebar.addEventListener('click', function () {
-            sidebar.classList.remove('open');
+            sidebar.classList.remove('active'); // <-- aqui
             overlay.style.display = 'none';
         });
 
         overlay.addEventListener('click', function () {
-            sidebar.classList.remove('open');
+            sidebar.classList.remove('active'); // <-- aqui
             overlay.style.display = 'none';
         });
     }
@@ -89,5 +89,33 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(() => {
             window.location.href = 'perfil.html';
         }, 300);
+    });
+
+
+    // BLOQUEIO DE BOTÕES E LINKS PARA NÃO LOGADOS
+    const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+    if (!usuario) {
+        const botoes = document.querySelectorAll('a, button');
+        botoes.forEach(btn => {
+            // Não bloqueia se for login ou comece agora
+            const isLogin = btn.matches('a[href="login.html"], button[href="login.html"]');
+            const isCadastro = btn.matches('a[href="cadastro.html"], button[href="cadastro.html"]');
+            const isComeceAgora = btn.textContent && btn.textContent.toLowerCase().includes('comece agora');
+            if (!isLogin && !isCadastro && !isComeceAgora) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const modal = new bootstrap.Modal(document.getElementById('cadastroModal'));
+                    modal.show();
+                });
+            }
+        });
+    }
+
+    // Redireciona todos os botões/links de voltar para home.html
+    document.querySelectorAll('.voltar').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = "home.html";
+        });
     });
 });

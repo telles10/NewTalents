@@ -43,20 +43,33 @@ document.addEventListener('DOMContentLoaded', function () {
     if (form) {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
+            const nome = document.getElementById('nome').value.trim();
             const email = document.getElementById('email').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
             const senha = document.getElementById('senha').value;
             const confirmar = document.getElementById('confirmarSenha').value;
-            if (!email || !senha || !confirmar) {
+            if (!nome || !email || !telefone || !senha || !confirmar) {
                 alert('Preencha todos os campos.');
+                return;
+            }
+            // Validação para formato internacional: +55 (11) 91234-5678
+            const telPattern = /^\+\d{1,3}\s?\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/;
+            if (!telPattern.test(telefone)) {
+                alert('Digite o telefone no formato: +55 (11) 91234-5678');
                 return;
             }
             if (senha !== confirmar) {
                 alert('As senhas não coincidem.');
                 return;
             }
-            // Aqui você pode adicionar lógica para enviar os dados ao backend
+
+            let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+            usuarios.push({ nome, email, telefone, senha });
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
             alert('Cadastro realizado com sucesso!');
             form.reset();
+            window.location.href = "login.html";
         });
     }
 });

@@ -1,36 +1,66 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('loginForm');
-    
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        if (!form.checkValidity()) {
-            event.stopPropagation();
-        } else {
-            // Add loading state to button
-            const submitBtn = form.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Entrando...';
-            
-            // Simulate login - Replace with actual login logic
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1500);
+window.addEventListener('DOMContentLoaded', function() {
+    // Partículas de fundo
+    const canvas = document.getElementById('particles-bg');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w = window.innerWidth, h = window.innerHeight;
+    canvas.width = w; canvas.height = h;
+    let particles = [];
+    for(let i=0;i<32;i++){
+        particles.push({
+            x: Math.random()*w,
+            y: Math.random()*h,
+            r: 1.5+Math.random()*2.5,
+            dx: (Math.random()-0.5)*0.7,
+            dy: (Math.random()-0.5)*0.7,
+            a: 0.10+Math.random()*0.10
+        });
+    }
+    function draw(){
+        ctx.clearRect(0,0,w,h);
+        for(let p of particles){
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,p.r,0,2*Math.PI);
+            ctx.fillStyle = `rgba(0,123,255,${p.a})`;
+            ctx.shadowColor = "#003366";
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            p.x += p.dx; p.y += p.dy;
+            if(p.x<0||p.x>w) p.dx*=-1;
+            if(p.y<0||p.y>h) p.dy*=-1;
         }
-        
-        form.classList.add('was-validated');
+        requestAnimationFrame(draw);
+    }
+    draw();
+    window.addEventListener('resize',()=>{
+        w = window.innerWidth; h = window.innerHeight;
+        canvas.width = w; canvas.height = h;
     });
+});
 
-    // Add password visibility toggle
-    const passwordInput = document.getElementById('password');
-    const togglePassword = document.createElement('button');
-    togglePassword.type = 'button';
-    togglePassword.className = 'btn btn-link position-absolute end-0 top-50 translate-middle-y text-primary pe-3';
-    togglePassword.innerHTML = '<i class="bi bi-eye"></i>';
-    togglePassword.addEventListener('click', function() {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        this.innerHTML = type === 'password' ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
-    });
-    passwordInput.parentElement.appendChild(togglePassword);
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome') ? document.getElementById('nome').value.trim() : '';
+            const email = document.getElementById('email').value.trim();
+            const senha = document.getElementById('senha').value.trim();
+            if (!email || !senha) {
+                alert('Preencha todos os campos.');
+                return;
+            }
+
+            // Salva o login na lista de logins
+            let logins = JSON.parse(localStorage.getItem('logins')) || [];
+            logins.push({ nome, email, senha, data: new Date().toISOString() });
+            localStorage.setItem('logins', JSON.stringify(logins));
+
+            // Salva o usuário logado
+            localStorage.setItem('usuarioLogado', JSON.stringify({ nome, email }));
+
+            // Redireciona para home.html
+            window.location.href = "home.html";
+        });
+    }
 });

@@ -317,3 +317,10 @@ body {
         max-width: 98vw !important;
     }
 }
+
+/* Script para validação do telefone */
+const telefone = document.getElementById('telefone').value.trim();
+if (telefone.length < 10 || telefone.length > 15) {
+    alert('O telefone deve ter entre 10 e 15 dígitos.');
+    return;
+}
